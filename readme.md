@@ -1,1 +1,1 @@
-React Timer App
+React boiler plate 3
