@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 
+// components
+import TodoApp from 'TodoApp';
+
 
 $(document).foundation();
 
@@ -9,6 +12,6 @@ $(document).foundation();
 require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
-<p>Boiler Plate 3 Project</p>,
+<TodoApp/>,
   document.getElementById('app')
 );
