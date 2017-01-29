@@ -6,6 +6,7 @@ import Todo from 'Todo';
 export default class TodoList extends React.Component {
   render(){
     let {todos} = this.props;
+
     let renderTodos = () => {
       return todos.map((todo) => {
         return (
@@ -13,6 +14,7 @@ export default class TodoList extends React.Component {
         )
       })
     }
+
     return (
       <div>
         {renderTodos()}
