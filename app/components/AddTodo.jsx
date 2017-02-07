@@ -21,6 +21,7 @@ export default class AddTodo extends React.Component {
         <input type="text" ref="TodoText" placeholder="What do you need to do?"/>
         <button className="button expanded">Add Todo</button>
       </form>
+      {this.props.children}
     </div>
     )
   }
