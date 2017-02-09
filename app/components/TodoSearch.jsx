@@ -26,3 +26,7 @@ export default class TodoSearch extends React.Component{
     )
   }
 }
+
+TodoSearch.propTypes ={
+  onSearch : React.PropTypes.func.isRequired
+}

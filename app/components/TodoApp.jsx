@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 // components
-import TodoList from 'TodoList';
-import AddTodo from 'AddTodo';
-import TodoSearch from 'TodoSearch';
+import TodoList from 'TodoList'
+import AddTodo from 'AddTodo'
+import TodoSearch from 'TodoSearch'
 
 
 export default class TodoApp extends React.Component {
@@ -33,11 +33,11 @@ export default class TodoApp extends React.Component {
     }
   }
   handleAddTodo(text){
-    alert('new todo: ' + text);
+    alert('new todo: ' + text)
   }
 
   altHandleAddTodo = (text) => {
-    alert('new alt todo: ' + text);
+    alert('new alt todo: ' + text)
   }
 
   handleSearch(showCompleted, searchText) {
