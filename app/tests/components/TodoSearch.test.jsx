@@ -36,7 +36,7 @@ describe('TodoSearch', () => {
     TestUtils.Simulate.change(todoSearch.refs.showCompleted);
     expect(spy).toHaveBeenCalledWith(true, searchText)
 
-    console.log(this);
+  
 
     todoSearch.refs.showCompleted.checked = false
     TestUtils.Simulate.change(todoSearch.refs.showCompleted);
