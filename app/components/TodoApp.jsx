@@ -5,6 +5,7 @@ import uuid from 'node-uuid'
 import TodoList from 'TodoList'
 import AddTodo from 'AddTodo'
 import TodoSearch from 'TodoSearch'
+import TodoAPI from 'TodoAPI'
 
 
 export default class TodoApp extends React.Component {
@@ -13,29 +14,12 @@ export default class TodoApp extends React.Component {
     this.state = {
       showCompleted: false,
       searchText: '',
-      todos: [
-        {
-          id: uuid(),
-          text: 'Walks the dog',
-          completed: false
-        },
-        {
-          id: uuid(),
-          text: 'Clean the yard',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'Watch Walking Dead',
-          completed: true
-        },
-        {
-          id: uuid(),
-          text: 'Make Tea',
-          completed: false
-        }
-      ]
+      todos: TodoAPI.getTodos()
     }
+  }
+
+  componentDidUpdate(){
+    TodoAPI.setTodos(this.state.todos)
   }
 
   handleAddTodo(text){
@@ -52,23 +36,17 @@ export default class TodoApp extends React.Component {
     })
   }
   handleToggle(id) {
-
     let updatedTodos = this.state.todos.map((todo)=>{
       if(todo.id === id){
         todo.completed = !todo.completed
       }
       return todo
     })
-
-
-
     this.setState({
       todos: [
         ...updatedTodos
       ]
     })
-
-
   }
 
 
