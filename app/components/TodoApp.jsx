@@ -23,7 +23,6 @@ export default class TodoApp extends React.Component {
   }
 
   handleAddTodo(text){
-
     this.setState ({
       todos: [
         ...this.state.todos,
@@ -35,6 +34,7 @@ export default class TodoApp extends React.Component {
       ]
     })
   }
+
   handleToggle(id) {
     let updatedTodos = this.state.todos.map((todo)=>{
       if(todo.id === id){
@@ -59,11 +59,13 @@ export default class TodoApp extends React.Component {
   }
 
   render() {
-    let {todos} = this.state;
+    let {todos, showCompleted, searchText} = this.state;
+    let filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText)
+
     return (
       <div>
         <TodoSearch onSearch={this.handleSearch.bind(this)}/>
-        <TodoList todos={todos} onToggle={this.handleToggle.bind(this)}/>
+        <TodoList todos={filteredTodos} onToggle={this.handleToggle.bind(this)}/>
         <AddTodo handleAddTodo={this.handleAddTodo.bind(this)} />
 
       </div>
