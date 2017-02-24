@@ -64,11 +64,11 @@ describe('TodoAPI', () => {
       text: 'do something',
       completed: true
     },{
-      id: 1,
+      id: 2,
       text: 'do something else',
       completed: true
     },{
-      id: 1,
+      id: 3,
       text: 'try and do this',
       completed: false
     }]
