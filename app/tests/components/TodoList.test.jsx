@@ -28,5 +28,24 @@ describe('TodoList', () => {
   let todoComponents = TestUtils.scryRenderedComponentsWithType(todoList, Todo);
 
   expect(todoComponents.length).toBe(todos.length);
+  expect(todoList.refs.message).toNotExist();
   })
+
+  it('should render empty message if no todos', () => {
+    let todos = []
+    let todoList = TestUtils.renderIntoDocument(<TodoList todos={todos}/>)
+
+    expect(todoList.refs.message).toExist();
+    // jquery way, find the dom node in ReactDOM, then assert from that
+     //let $el = $(ReactDOM.findDOMNode(todoList))
+     // expect($el.find('.container__message').length).toBe(1);
+
+
+
+
+
+
+
+  })
+
 })
