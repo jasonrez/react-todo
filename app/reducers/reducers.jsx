@@ -6,3 +6,15 @@ export let searchTextReducer = (state = '', action) => {
     return state;
   };
 };
+
+//showCompletedTodo default false, TOGGLE_SHOW_COMPLETED
+
+export let showCompletedReducer = (state = false, action)=> {
+  action.something = { holy: 'shit'}
+  switch(action.type) {
+    case 'TOGGLE_SHOW_COMPLETED':
+      return !state;
+    default:
+      return state;
+  };
+};
