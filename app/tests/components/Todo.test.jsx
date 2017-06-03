@@ -22,7 +22,7 @@ describe('Todo', () => {
     let spy = expect.createSpy();
     let todo = TestUtils.renderIntoDocument(<Todo {...todoData} onToggle={spy}/>)
 
-    TestUtils.Simulate.change(todo.refs.completed);
+    TestUtils.Simulate.click(todo.refs.completed);
 
     expect(spy).toHaveBeenCalledWith(199)
 

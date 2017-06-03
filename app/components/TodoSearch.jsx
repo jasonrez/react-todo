@@ -15,18 +15,16 @@ export default class TodoSearch extends React.Component{
         <div>
           <input type="search" ref="searchText" placeholder="Search todos" onChange={this.handleSearch.bind(this)}/>
         </div>
-        <div>
-          <label>
-            <input type="checkbox" ref="showCompleted" onChange={this.handleSearch.bind(this)}/>
-            Show Completed todos
 
-          </label>
-        </div>
+        <label onClick={this.handleSearch.bind(this)} >
+            <input type="checkbox" ref="showCompleted" />
+            <p>Show Completed todos</p>
+        </label>
       </div>
     )
   }
 }
-
-TodoSearch.propTypes ={
-  onSearch : React.PropTypes.func.isRequired
-}
+//
+// TodoSearch.propTypes ={
+//   onSearch : React.PropTypes.func.isRequired
+// }

@@ -33,14 +33,13 @@ describe('TodoSearch', () => {
     let $el = $(ReactDOM.findDOMNode(todoSearch));
 
     todoSearch.refs.showCompleted.checked = true
-    TestUtils.Simulate.change(todoSearch.refs.showCompleted);
-    expect(spy).toHaveBeenCalledWith(true, searchText)
-
-  
+    TestUtils.Simulate.click(todoSearch.refs.showCompleted);
+    expect(spy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledWith(true, '')
 
     todoSearch.refs.showCompleted.checked = false
-    TestUtils.Simulate.change(todoSearch.refs.showCompleted);
+    TestUtils.Simulate.click(todoSearch.refs.showCompleted);
     expect(spy).toHaveBeenCalledWith(false, searchText)
-  })
 
+  })
 })
