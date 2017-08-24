@@ -14,9 +14,6 @@ store.subscribe(() => {
   console.log('new state', store.getState())
 })
 
-store.dispatch(actions.addTodo('SleepTime'));
-
-
 $(document).foundation();
 
 //App css
