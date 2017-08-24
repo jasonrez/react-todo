@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux'
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 
 // components
@@ -15,12 +16,15 @@ store.subscribe(() => {
 
 store.dispatch(actions.addTodo('SleepTime'));
 
+
 $(document).foundation();
 
 //App css
 require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
-<TodoApp/>,
+<Provider store={store}>
+  <TodoApp/>
+</Provider>,
   document.getElementById('app')
 );
