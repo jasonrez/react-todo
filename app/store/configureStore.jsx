@@ -1,5 +1,6 @@
 
-import { createStore, compose, combineReducers} from 'redux'
+import { createStore, compose, combineReducers, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
 import { searchTextReducer, showCompletedReducer, todoReducer } from 'reducers'
 
 export let configure = (initialState = {}) => {
@@ -9,8 +10,16 @@ export let configure = (initialState = {}) => {
     todos: todoReducer
   })
 
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
-  let store = createStore(reducer,initialState, composeEnhancers())
+  //const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__ || compose;
+  let store = createStore(
+    reducer,
+    initialState,
+    compose(
+      applyMiddleware(thunk),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+  )
+
 
   return store;
 }

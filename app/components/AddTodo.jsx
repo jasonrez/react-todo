@@ -6,11 +6,11 @@ export class AddTodo extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     var {dispatch} = this.props;
-    let text = this.refs.TodoText.value
-    if (text.length > 0) {
+    let todoText = this.refs.TodoText.value
+    if (todoText.length > 0) {
       this.refs.TodoText.value = '';
       //this.props.handleAddTodo(text);
-      dispatch(actions.addTodo(text));
+      dispatch(actions.startAddTodo(todoText));
     } else {
       this.refs.TodoText.focus();
     }
