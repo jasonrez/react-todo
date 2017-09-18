@@ -45,23 +45,30 @@ describe('Reducers', () =>{
     })
   })
 
-  describe('toggleRodo', () => {
+  describe('toggleTodo', () => {
     it('should toggle todo', () => {
-      let todo = [{
+      let todos = [{
         id: 100,
+        text: 'some random todo',
         completed: true,
+        createdAt: 123,
         completedAt: moment().unix()
       }]
-      let action = {
-        type: 'TOGGLE_TODO',
-        id: 100
+      let updates = {
+        completed: false,
+        completedAt: null
       }
-      let res = reducers.todoReducer(df(todo),df(action))
+      let action = {
+        type: 'UPDATE_TODO',
+        id: todos[0].id,
+        updates
+      }
+      let res = reducers.todoReducer(df(todos),df(action))
 
-      expect(res[0].completed).toEqual(false)
-      expect(res[0].completedAt).toEqual(undefined)
-    })
-
+      expect(res[0].completed).toEqual(updates.completed)
+      expect(res[0].completedAt).toEqual(updates.completedAt)
+      expect(res[0].text).toEqual(todos[0].text)
+})
     it('should add existing todos', () =>{
       let todos = {
         id : '111',

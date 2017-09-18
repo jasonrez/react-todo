@@ -21,7 +21,7 @@ export let startAddTodo = (text) => {
       createdAt: moment().unix(),
       completedAt: null
     }
-    let todoRef = firebaseRef.child('todo').push(todo)
+    let todoRef = firebaseRef.child('todos').push(todo)
 
     return todoRef.then(() => {
       dispatch(addTodo({
@@ -33,10 +33,30 @@ export let startAddTodo = (text) => {
 }
 
 export let addTodos = (todos) => {
-  return {type: 'ADD_TODOS', todos}
+  return {
+    type: 'ADD_TODOS',
+    todos
+  }
 }
 
 // toggleTodo(id) TOGGLE_TODO
-export let toggleAddTodo = (id) => {
-  return {type: 'TOGGLE_TODO', id}
+export let updateTodo = (id, updates) => {
+  return {
+    type: 'UPDATE_TODO',
+    id,
+    updates
+  }
+}
+
+export let startToggleTodo = (id, completed) => {
+  return (dispatch, getState) => {
+    let todoRef = firebaseRef.child(`todos/${id}`)
+    var updates = {
+      completed,
+      completedAt: completed ? moment().unix(): null
+    }
+    return todoRef.update(updates).then(()=>{
+      dispatch(updateTodo(id, updates))
+    })
+  }
 }
