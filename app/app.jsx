@@ -13,16 +13,10 @@ import {configure} from 'configureStore'
 let store = configure();
 
 
-store.subscribe(() => {
-  let state = store.getState();
-  console.log('new state', state)
 
-  TodoAPI.setTodos(state.todos)
-})
 
-let initialTodos =TodoAPI.getTodos();
-store.dispatch(actions.addTodos(initialTodos))
-
+store.dispatch(actions.startAddTodos())
+// load foundation
 $(document).foundation();
 
 //App css

@@ -1,5 +1,6 @@
 import moment from 'moment'
 import firebase, {firebaseRef} from 'app/firebase/' // may need index.jsx
+
 export let setSearchText = (searchText) => {
   return {type: 'SET_SEARCH_TEXT', searchText}
 }
@@ -38,6 +39,29 @@ export let addTodos = (todos) => {
     todos
   }
 }
+
+export let startAddTodos = () => {
+
+  return (dispatch, getState) =>{
+
+  // get todos from firebase
+  let todoRef = firebaseRef.child('todos');
+  return todoRef.once('value').then((snapshot)=>{
+    let todos = snapshot.val() || {}
+    let parseTodos = []
+    Object.keys(todos).map((todoId)=>{
+      parseTodos.push({
+        ...todos[todoId],
+        id: todoId
+      })
+    })
+    dispatch(addTodos(parseTodos))
+  })
+ }
+}
+
+
+
 
 // toggleTodo(id) TOGGLE_TODO
 export let updateTodo = (id, updates) => {
