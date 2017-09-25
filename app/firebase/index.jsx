@@ -2,12 +2,10 @@ import firebase from 'firebase'
 
 try{
 var config = {
-    apiKey: "AIzaSyCIoL3mDdeQYnrRL9SKl1QiN1LIb9YE1VI",
-    authDomain: "neon-todo.firebaseapp.com",
-    databaseURL: "https://neon-todo.firebaseio.com",
-    projectId: "neon-todo",
-    storageBucket: "neon-todo.appspot.com",
-    messagingSenderId: "230513930607"
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    databaseURL: process.env.DATABASE_URL,
+    storageBucket: process.env.STORAGE_BUCKET
   };
 firebase.initializeApp(config);
 } catch (e) {
