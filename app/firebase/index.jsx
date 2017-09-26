@@ -12,5 +12,8 @@ firebase.initializeApp(config);
 
 }
 
+//create a provider which lets firebase know which social platform to use, super easy
+export let githubProvider = new firebase.auth.GithubAuthProvider() // will be used in actions file to auth with github
+
 export let firebaseRef = firebase.database().ref()
 export default firebase;
