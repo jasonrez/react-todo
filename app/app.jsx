@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
-import {Route, Router, IndexRoute, hashHistory} from 'react-router';
+import {hashHistory} from 'react-router';
 //import './../playground/firebaseApp/index'
 
 // components
-import TodoApp from 'TodoApp'
-import Login from 'Login'
-import TodoAPI from 'TodoAPI'
 
 import * as actions from 'actions'
 import {configure} from 'configureStore'
 let store = configure();
-
+import TodoRouter from 'app/router/'
+//
+import firebase from 'app/firebase/'
+firebase.auth().onAuthStateChanged((user)=>{
+  hashHistory.push(user ? '/todos' : '/')
+})
 
 
 
@@ -23,25 +25,24 @@ $(document).foundation();
 //App css
 require('style!css!sass!applicationStyles');
 
+let requireLogin = (nextState, replace, next)=>{
+  if(!firebase.auth().currentUser) {
+    console.log('not auth!!!')
+    replace('/')
+  }
+  next()
+}
+
+let redirectIfLoggedIn = (nextState, replace, next) =>{
+  if(firebase.auth().currentUser){
+    replace('/todos')
+  }
+  next()
+}
+
 ReactDOM.render(
-<Provider store={store}>
-  <Router history={hashHistory}>
-    <Route path="/">
-      <Route path={"/todos"} component={TodoApp}/>
-      <IndexRoute  component={Login}/>
-    </Route>
-  </Router>
-</Provider>,
+  <Provider store={store}>
+    <TodoRouter />
+  </Provider>,
   document.getElementById('app')
 );
-
-// ReactDOM.render(
-//   <Router history={hashHistory}>
-//     <Route path="/" component={Main}>
-//       <Route path={"about"} component={About}/>
-//       <Route path={"examples"} component={Examples}/>
-//       <IndexRoute component={Weather}/>
-//     </Route>
-//   </Router>,
-//   document.getElementById('app')
-// );
