@@ -90,6 +90,26 @@ describe ('actions', () => {
     expect(res).toEqual(action);
   })
 
+  describe('auth', ()=>{
+    it('should dispatch LOGIN action', ()=>{
+      let action = {
+        type: 'LOGIN',
+        uid: 'random uid'
+      }
+      let res = actions.login(action.uid)
+
+      expect(res).toEqual(action)
+    })
+    it('should dispatch LOGOUT action', ()=>{
+      let action = {
+        type: 'LOGOUT',
+      }
+      let res = actions.logout()
+
+      expect(res).toEqual(action)
+    })
+  })
+
   describe('Test with firebase todos', ()=>{
     let testTodoRef;
 

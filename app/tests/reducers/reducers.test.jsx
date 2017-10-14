@@ -88,4 +88,30 @@ describe('Reducers', () =>{
 
 
   })
+
+  describe('auth reducer', ()=>{
+    it('should add uid to auth', () => {
+      let auth = {
+        uid: 'random uid'
+      }
+      let action = {
+        type: 'LOGIN',
+        uid: auth.uid
+      }
+      let res = reducers.authReducer(df([]),df(action))
+
+      expect(res).toEqual(auth)
+    })
+    it('should clear uid from store', ()=>{
+      let dirtyAuth = { uid:'random uid'}
+      let cleanAuth = {}
+      let action = {
+        type: 'LOGOUT'
+      }
+      let res = reducers.authReducer(df(dirtyAuth),df(action))
+
+      expect(res).toEqual(cleanAuth)
+    })
+
+  })
 })

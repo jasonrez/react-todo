@@ -1,13 +1,14 @@
 
 import { createStore, compose, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import { searchTextReducer, showCompletedReducer, todoReducer } from 'reducers'
+import { searchTextReducer, showCompletedReducer, todoReducer, authReducer } from 'reducers'
 
 export let configure = (initialState = {}) => {
   let reducer = combineReducers({
     searchText: searchTextReducer,
     showCompleted : showCompletedReducer,
-    todos: todoReducer
+    todos: todoReducer,
+    auth: authReducer
   })
 
   //const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__ || compose;

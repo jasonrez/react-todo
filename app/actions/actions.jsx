@@ -84,6 +84,18 @@ export let startToggleTodo = (id, completed) => {
     })
   }
 }
+export let login = (uid) => {
+  return {
+    type: 'LOGIN',
+    uid
+  }
+}
+
+export let logout = () => {
+  return {
+    type: 'LOGOUT'
+  }
+}
 
 export let startLogin = () =>{
   return (dispatch, getState) => {
