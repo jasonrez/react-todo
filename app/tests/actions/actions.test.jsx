@@ -44,22 +44,6 @@ describe ('actions', () => {
     expect(res).toEqual(action)
   })
 
-  it('should crerate todo and dispatch ADD_TODO', (done)=>{
-    const store = createMockStore({});
-    const todoText = 'My todo item'
-
-    store.dispatch(actions.startAddTodo(todoText)).then(()=>{
-      const actions = store.getActions()
-      expect(actions[0]).toInclude({
-        type: 'ADD_TODO'
-      })
-      expect(actions[0].todo).toInclude({
-        text: todoText
-      })
-      done()
-    }).catch(done)
-  })
-
   it('should generate add todos action', ()=>{
     let todos = [{
       id : '111',
@@ -111,31 +95,35 @@ describe ('actions', () => {
   })
 
   describe('Test with firebase todos', ()=>{
-    let testTodoRef;
+    let testTodoRef
+    let uid // store uid for logged in user
+    let todosRef // ref to logged in users todos
 
     beforeEach( (done)=>{
-      let todosRef = firebaseRef.child('todos')
-
-      todosRef.remove().then(()=>{
-        testTodoRef = firebaseRef.child('todos').push()
+      // sign in anno
+      firebase.auth().signInAnonymously().then((user) => {
+        uid = user.uid
+        todosRef = firebaseRef.child(`users/${uid}/todos`) // set todosRef = to the signed in users todos
+        return todosRef.remove(); // removes all existing todos, returning it so we can chain on a then and do something once all todos removed
+      }).then(()=>{
+        testTodoRef = todosRef.push()
 
         return testTodoRef.set({
-          text: ' something to do',
+          text: 'something to do',
           completed: false,
-          createdAt: 676767
+          createdAt: 12234567
         })
       })
       .then(()=> done())
       .catch(done)
     })
 
-
     afterEach( (done)=>{
-      testTodoRef.remove().then(()=> done())
+      todosRef.remove().then(()=> done())
     })
 
     it('should toggle todo and dispatch UPDATE_TODO action ', (done)=>{
-      const store = createMockStore({})
+      const store = createMockStore({auth:{uid}})
       const action = actions.startToggleTodo(testTodoRef.key, true)
 
       store.dispatch(action).then(()=>{
@@ -157,7 +145,7 @@ describe ('actions', () => {
     })
 
     it('should grab todos from firebase and load into app', (done)=>{
-       const store = createMockStore({})
+       const store = createMockStore({auth:{uid}})
       // add a todo to firebase first
 
       const action = actions.startAddTodos();
@@ -167,9 +155,25 @@ describe ('actions', () => {
 
          expect(mockActions[0].type).toEqual('ADD_TODOS')
          expect(mockActions[0].todos.length).toEqual(1)
-         expect(mockActions[0].todos[0].text).toEqual(' something to do')
+         expect(mockActions[0].todos[0].text).toEqual('something to do')
          done()
        }).catch(done);
+    })
+
+    it('should crerate todo and dispatch ADD_TODO', (done)=>{
+      const store = createMockStore({auth:{uid}});
+      const todoText = 'My todo item'
+
+      store.dispatch(actions.startAddTodo(todoText)).then(()=>{
+        const actions = store.getActions()
+        expect(actions[0]).toInclude({
+          type: 'ADD_TODO'
+        })
+        expect(actions[0].todo).toInclude({
+          text: todoText
+        })
+        done()
+      }).catch(done)
     })
 
   })
