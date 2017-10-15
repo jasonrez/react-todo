@@ -79,14 +79,26 @@ describe('Reducers', () =>{
         todos
       }
       let res = reducers.todoReducer(df([]),df(action));
-
-
       expect(res[0]).toEqual(todos[0])
-
-
     })
 
+    it('should clear todos on LOGOUT',()=>{
+      let todos = [{
+        id: 100,
+        text: 'some random todo',
+        completed: true,
+        createdAt: 123,
+        completedAt: moment().unix()
+      }]
+      let action = {
+        type: 'LOGOUT'
+      }
 
+      let res = reducers.todoReducer(df(todos), df(action))
+
+      expect(res).toEqual([])
+
+    })
   })
 
   describe('auth reducer', ()=>{
